@@ -1,8 +1,5 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import { SystemShell } from "@/system/SystemShell";
-
-export default function SystemPage() {
-  return <SystemShell />;
+export default function LegacySystemPage() {
+  redirect("/systems");
 }
-

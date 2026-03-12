@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
-import { categoryLabels, getGroupedComponentDocs } from "../_data/component-docs";
+import { categoryLabels, getGroupedComponentDocs } from "@/app/_docs/_data/component-docs";
 
 export function DocsSidebar() {
   const pathname = usePathname();

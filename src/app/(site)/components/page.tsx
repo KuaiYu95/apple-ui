@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Badge, Card, Grid, Stack } from "@/components";
-import { getGroupedComponentDocs } from "@/app/docs/_data/component-docs";
+import { getGroupedComponentDocs } from "@/app/_docs/_data/component-docs";
 
 export default function ComponentsPage() {
   const groups = getGroupedComponentDocs();

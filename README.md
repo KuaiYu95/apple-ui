@@ -31,4 +31,4 @@ pnpm dev
 import { Button, Card, ThemeProvider } from "@yu-cq/apple-ui";
 ```
 
-更多系统级页面（Settings / Wallet / Dashboard 等）与文档会在 `apps/docs` 或 `src/app/docs` 中提供。
+更多系统级页面（Settings / Wallet / Dashboard 等）与文档会在站点路由与 `src/system` 中提供。

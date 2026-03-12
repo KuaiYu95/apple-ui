@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Container } from "@/components";
-import { DocsSidebar } from "@/app/docs/_components/DocsSidebar";
+import { DocsSidebar } from "@/app/_docs/_components/DocsSidebar";
 
 export function DocsShell({ children }: { children: ReactNode }) {
   return (

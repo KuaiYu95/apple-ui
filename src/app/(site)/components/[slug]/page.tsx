@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge, Card, Grid, Stack } from "@/components";
-import { categoryLabels, componentDocs, getComponentDoc } from "@/app/docs/_data/component-docs";
-import { ComponentDocPreview } from "@/app/docs/_components/ComponentDocPreview";
+import { categoryLabels, componentDocs, getComponentDoc } from "@/app/_docs/_data/component-docs";
+import { ComponentDocPreview } from "@/app/_docs/_components/ComponentDocPreview";
 
 export function generateStaticParams() {
   return componentDocs.map((doc) => ({ slug: doc.slug }));

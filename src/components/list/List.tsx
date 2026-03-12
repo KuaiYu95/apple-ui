@@ -58,9 +58,16 @@ export function ListItem({
       </a>
     );
   }
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} {...props}>
+        {content}
+      </button>
+    );
+  }
   return (
-    <button type="button" onClick={onClick} {...props}>
+    <div role="listitem" {...props}>
       {content}
-    </button>
+    </div>
   );
 }
