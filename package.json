@@ -1,0 +1,63 @@
+{
+  "name": "@yu-cq/apple-ui",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Apple-inspired React UI components.",
+  "keywords": [
+    "react",
+    "ui",
+    "components",
+    "apple",
+    "design-system"
+  ],
+  "license": "MIT",
+  "author": "KuaiYu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KuaiYu95/apple-ui"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "build:lib": "tsup src/index.ts --dts --format cjs,esm --out-dir dist --treeshake --clean --tsconfig tsconfig.build.json",
+    "build:all": "pnpm build && pnpm build:lib"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.35.2",
+    "lucide-react": "^0.577.0"
+  },
+  "peerDependencies": {
+    "next": "^16.0.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "tailwindcss": "^4",
+    "tsup": "^8.5.1",
+    "typescript": "^5"
+  }
+}
