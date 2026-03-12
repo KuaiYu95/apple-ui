@@ -12,7 +12,7 @@ import type {
 
 export function Table({ children, className }: TableProps) {
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto rounded-[var(--radius-apple-md)] bg-[var(--color-apple-bg)] shadow-[var(--shadow-apple-sm)]">
       <table className={clsx(tableStyles(), className)}>{children}</table>
     </div>
   );
@@ -31,15 +31,22 @@ export function TableRow({
   className,
   onClick,
 }: TableRowProps) {
-  const Component = onClick ? "button" : "tr";
-  const props = onClick
-    ? { type: "button" as const, onClick, className: "w-full text-left block" }
-    : {};
   return (
     <tr
       className={clsx(tableRowStyles({ interactive: !!onClick }), className)}
       onClick={onClick}
       role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={
+        onClick
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onClick();
+              }
+            }
+          : undefined
+      }
     >
       {children}
     </tr>

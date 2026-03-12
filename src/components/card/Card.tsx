@@ -10,9 +10,10 @@ export function Card({
   padding = "md",
   hover = false,
   as: Component = "div",
+  ...rest
 }: CardProps) {
   return (
-    <Component className={clsx(cardStyles({ padding, hover }), className)}>
+    <Component className={clsx(cardStyles({ padding, hover }), className)} {...rest}>
       {children}
     </Component>
   );

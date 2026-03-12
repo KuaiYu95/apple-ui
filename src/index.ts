@@ -14,6 +14,7 @@ export { Button } from "@/components/button/Button";
 export { Input } from "@/components/input/Input";
 export { Textarea } from "@/components/textarea/Textarea";
 export { Select } from "@/components/select/Select";
+export { Tabs } from "@/components/tabs/Tabs";
 export { Switch } from "@/components/switch/Switch";
 export { Checkbox } from "@/components/checkbox/Checkbox";
 export { Radio } from "@/components/radio/Radio";
@@ -51,3 +52,11 @@ export { ThemeProvider, useTheme } from "@/components/theme/ThemeProvider";
 export { tokens, breakpoints } from "@/theme/tokens";
 export { useAppleBreakpoint } from "@/hooks/useAppleBreakpoint";
 export { usePrefersColorScheme } from "@/hooks/usePrefersColorScheme";
+
+// System pages
+export { SettingsPage } from "@/system/settings/SettingsPage";
+export { WalletPage } from "@/system/wallet/WalletPage";
+export { DashboardPage } from "@/system/dashboard/DashboardPage";
+export { ControlCenterPage } from "@/system/control-center/ControlCenterPage";
+export { VisionOSGlassPage } from "@/system/visionos/VisionOSGlassPage";
+export { SystemShell } from "@/system/SystemShell";

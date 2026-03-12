@@ -1,42 +1,52 @@
 "use client";
 
+import { create } from "zustand";
 import type { ToastItem, ToastOptions } from "./toast.types";
 
-type Listener = (toasts: ToastItem[]) => void;
+type ToastState = {
+  toasts: ToastItem[];
+  add: (message: string, type: ToastItem["type"], options?: ToastOptions) => string;
+  remove: (id: string) => void;
+};
 
-let toasts: ToastItem[] = [];
-const listeners = new Set<Listener>();
+const useToastStore = create<ToastState>((set) => ({
+  toasts: [],
+  add: (message, type, options) => {
+    const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+    const next: ToastItem = {
+      id,
+      message,
+      type,
+      duration: options?.duration ?? 3000,
+    };
+    set((state) => ({ toasts: [...state.toasts, next] }));
+    return id;
+  },
+  remove: (id) => {
+    set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) }));
+  },
+}));
 
-function notify() {
-  listeners.forEach((l) => l([...toasts]));
-}
-
-function add(message: string, type: ToastItem["type"] = "default", options?: ToastOptions): string {
-  const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-  toasts = [...toasts, { id, message, type, duration: options?.duration ?? 3000 }];
-  notify();
-  return id;
-}
-
-function remove(id: string) {
-  toasts = toasts.filter((t) => t.id !== id);
-  notify();
-}
-
-export function subscribe(listener: Listener) {
-  listeners.add(listener);
-  return () => listeners.delete(listener);
+export function subscribe(listener: (toasts: ToastItem[]) => void) {
+  return useToastStore.subscribe((state) => {
+    listener([...state.toasts]);
+  });
 }
 
 export function getToasts() {
-  return [...toasts];
+  return [...useToastStore.getState().toasts];
 }
 
 export const toast = {
-  success: (message: string, options?: ToastOptions) => add(message, "success", options),
-  error: (message: string, options?: ToastOptions) => add(message, "error", options),
-  warning: (message: string, options?: ToastOptions) => add(message, "warning", options),
-  info: (message: string, options?: ToastOptions) => add(message, "info", options),
-  message: (message: string, options?: ToastOptions) => add(message, "default", options),
-  remove,
+  success: (message: string, options?: ToastOptions) =>
+    useToastStore.getState().add(message, "success", options),
+  error: (message: string, options?: ToastOptions) =>
+    useToastStore.getState().add(message, "error", options),
+  warning: (message: string, options?: ToastOptions) =>
+    useToastStore.getState().add(message, "warning", options),
+  info: (message: string, options?: ToastOptions) =>
+    useToastStore.getState().add(message, "info", options),
+  message: (message: string, options?: ToastOptions) =>
+    useToastStore.getState().add(message, "default", options),
+  remove: (id: string) => useToastStore.getState().remove(id),
 };

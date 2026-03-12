@@ -1,6 +1,6 @@
 {
   "name": "@yu-cq/apple-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "Apple-inspired React UI components.",
   "keywords": [
@@ -42,7 +42,8 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.35.2",
-    "lucide-react": "^0.577.0"
+    "lucide-react": "^0.577.0",
+    "zustand": "^5.0.0"
   },
   "peerDependencies": {
     "next": "^16.0.0",

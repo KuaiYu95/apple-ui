@@ -6,13 +6,13 @@ export type StackProps = {
   children: React.ReactNode;
   className?: string;
   direction?: "row" | "column";
-  gap?: "xs" | "sm" | "md" | "lg";
+  gap?: "xs" | "sm" | "md" | "lg" | "xl";
   align?: "start" | "center" | "end" | "stretch";
   justify?: "start" | "center" | "end" | "between" | "around";
   wrap?: boolean;
 };
 
-const gapClass = { xs: "gap-1", sm: "gap-2", md: "gap-4", lg: "gap-6" };
+const gapClass = { xs: "gap-1", sm: "gap-2", md: "gap-4", lg: "gap-6", xl: "gap-8" };
 const alignClass = {
   start: "items-start",
   center: "items-center",

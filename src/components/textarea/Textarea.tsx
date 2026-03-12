@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { clsx } from "clsx";
 import { textareaStyles } from "./textarea.styles";
 import type { TextareaProps } from "./textarea.types";
@@ -12,7 +13,8 @@ export function Textarea({
   id: idProp,
   ...rest
 }: TextareaProps) {
-  const id = idProp ?? `textarea-${Math.random().toString(36).slice(2, 9)}`;
+  const reactId = useId();
+  const id = idProp ?? reactId;
   const resolvedStatus = error ? "error" : status;
 
   return (

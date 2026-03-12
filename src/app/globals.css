@@ -48,6 +48,66 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  background-clip: padding-box;
+}
+
+*:hover {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(60, 60, 67, 0.32) transparent;
+}
+
+*:hover::-webkit-scrollbar-thumb,
+*:focus::-webkit-scrollbar-thumb,
+*:active::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(60, 60, 67, 0.2),
+    rgba(60, 60, 67, 0.36)
+  );
+  background-clip: padding-box;
+}
+
+.dark * {
+  scrollbar-color: transparent transparent;
+}
+
+.dark *:hover {
+  scrollbar-color: rgba(235, 235, 245, 0.22) transparent;
+}
+
+.dark *:hover::-webkit-scrollbar-thumb,
+.dark *:focus::-webkit-scrollbar-thumb,
+.dark *:active::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(235, 235, 245, 0.14),
+    rgba(235, 235, 245, 0.28)
+  );
+  background-clip: padding-box;
+}
+
 /* Focus ring for a11y (min tap 44px handled in components) */
 .focus-ring:focus-visible {
   outline: 2px solid var(--color-apple-primary);

@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useId, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { clsx } from "clsx";
 import { overlayStyles, panelPlacementStyles } from "./drawer.styles";
 import type { DrawerProps } from "./drawer.types";
+import { focusTrap } from "@/utils/focus-trap";
 
 const slideVariants = {
   bottom: { hidden: { y: "100%" }, visible: { y: 0 }, exit: { y: "100%" } },
@@ -20,16 +21,24 @@ export function Drawer({
   placement = "bottom",
   className,
 }: DrawerProps) {
+  const panelRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     if (!open) return;
+    previousFocusRef.current = document.activeElement as HTMLElement | null;
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
+    const releaseFocusTrap = focusTrap(panelRef.current);
     document.addEventListener("keydown", handleKey);
     document.body.style.overflow = "hidden";
     return () => {
+      releaseFocusTrap();
       document.removeEventListener("keydown", handleKey);
       document.body.style.overflow = "";
+      previousFocusRef.current?.focus();
     };
   }, [open, onClose]);
 
@@ -48,6 +57,7 @@ export function Drawer({
             aria-hidden
           />
           <motion.div
+            ref={panelRef}
             className={clsx(panelPlacementStyles({ placement }), className)}
             variants={v}
             initial="hidden"
@@ -56,10 +66,10 @@ export function Drawer({
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
             role="dialog"
             aria-modal="true"
-            aria-labelledby={title ? "drawer-title" : undefined}
+            aria-labelledby={title ? titleId : undefined}
           >
             {title && (
-              <h2 id="drawer-title" className="border-b border-[var(--color-apple-text-tertiary)]/15 px-4 py-3 text-[17px] font-semibold text-[var(--color-apple-text)]">
+              <h2 id={titleId} className="border-b border-[var(--color-apple-text-tertiary)]/15 px-4 py-3 text-[17px] font-semibold text-[var(--color-apple-text)]">
                 {title}
               </h2>
             )}

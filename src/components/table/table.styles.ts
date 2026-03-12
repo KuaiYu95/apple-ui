@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const tableStyles = cva(
-  "w-full border-collapse rounded-[var(--radius-apple-md)] overflow-hidden bg-[var(--color-apple-bg)] shadow-[var(--shadow-apple-sm)]"
+  "w-full border-collapse bg-[var(--color-apple-bg)]"
 );
 
 export const tableRowStyles = cva(

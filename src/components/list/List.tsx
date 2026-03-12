@@ -49,7 +49,7 @@ export function ListItem({
     </>
   );
   const props = {
-    className: clsx(listItemStyles(), className),
+    className: clsx(listItemStyles(), "w-full", className),
   };
   if (href) {
     return (

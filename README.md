@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Overview
+
+`@yu-cq/apple-ui` 是一个 Apple 风格的 React UI 组件库与系统基础，包含：
+
+- **基础布局**：`Container`、`Stack`、`Grid`、`NavigationBar`、`Sidebar`、`BottomTabBar`
+- **数据展示**：`Card`、`List` / `ListGroup` / `ListItem`、`Table` / `TableHead` / `TableBody` / `TableRow` / `TableCell`
+- **表单输入**：`Button`、`Input`、`Textarea`、`Select`、`Switch`、`Checkbox`、`Radio`
+- **反馈组件**：`Toast` / `ToastProvider` / `toast`、`Modal`、`Drawer`、`Tooltip`、`Alert`
+- **展示与状态**：`Avatar`、`Badge`、`Tag`、`Divider`、`Spinner`、`Skeleton`、`Progress`
+- **高级 Apple 组件**：`SegmentedControl`、`CommandPalette`、`SpotlightSearch`、`ContextMenu`、`GlassPanel`、`FloatingToolbar`
+- **主题与工具**：`ThemeProvider` / `useTheme`、`useAppleBreakpoint`、设计令牌 `tokens` 与断点 `breakpoints`
+
+组件风格与交互参考 Apple iOS / iPadOS / macOS 系统界面，内置明暗主题与响应式断点。
+
+详细中文组件说明见 [docs/COMPONENTS.zh-CN.md](./docs/COMPONENTS.zh-CN.md)。
 
 ## Getting Started
 
-First, run the development server:
+安装依赖后运行 Demo 站点：
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+浏览 `http://localhost:3000` 体验组件与示例页面。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+在应用中使用时，从包入口导入组件：
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```tsx
+import { Button, Card, ThemeProvider } from "@yu-cq/apple-ui";
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+更多系统级页面（Settings / Wallet / Dashboard 等）与文档会在 `apps/docs` 或 `src/app/docs` 中提供。

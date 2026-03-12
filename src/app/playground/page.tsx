@@ -6,6 +6,7 @@ import {
   Badge,
   Button,
   Card,
+  Tabs,
   Checkbox,
   CommandPalette,
   Container,
@@ -43,7 +44,7 @@ import {
 } from "@/components";
 import { useState } from "react";
 
-export default function Home() {
+export default function PlaygroundPage() {
   const [segment, setSegment] = useState("one");
   const [modalOpen, setModalOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -58,7 +59,7 @@ export default function Home() {
       <header className="border-b border-[var(--color-apple-text-tertiary)]/20 bg-[var(--color-apple-bg)] px-4 py-4">
         <Container maxWidth="lg" padding="none" className="px-4">
           <Stack direction="row" justify="between" align="center">
-            <h1 className="text-xl font-semibold">Apple UI</h1>
+            <h1 className="text-xl font-semibold">Apple UI Playground</h1>
             <Stack direction="row" gap="sm" align="center">
               <span className="text-sm text-[var(--color-apple-text-tertiary)]">
                 {platform}
@@ -118,15 +119,15 @@ export default function Home() {
                   <span className="text-[15px]">Switch</span>
                 </div>
                 <Textarea label="About you" placeholder="Tell us something..." />
-                <SegmentedControl
-                  options={[
-                    { value: "one", label: "One" },
-                    { value: "two", label: "Two" },
-                    { value: "three", label: "Three" },
+                <Tabs
+                  ariaLabel="Form context"
+                  items={[
+                    { value: "profile", label: "Profile" },
+                    { value: "security", label: "Security" },
+                    { value: "notifications", label: "Notifications" },
                   ]}
                   value={segment}
                   onChange={setSegment}
-                  aria-label="Segment"
                 />
               </Stack>
             </section>
@@ -147,7 +148,7 @@ export default function Home() {
                 <div className="flex flex-col gap-2">
                   <Checkbox
                     checked={true}
-                    onChange={() => { }}
+                    onChange={() => {}}
                     label="Receive notifications"
                   />
                   <Radio
@@ -158,7 +159,7 @@ export default function Home() {
                       { value: "pro", label: "Pro" },
                       { value: "enterprise", label: "Enterprise" },
                     ]}
-                    onChange={() => { }}
+                    onChange={() => {}}
                   />
                 </div>
               </Grid>
@@ -210,7 +211,7 @@ export default function Home() {
                 <Avatar fallback="AB" size="lg" />
                 <Badge variant="primary">Badge</Badge>
                 <Badge variant="success">Done</Badge>
-                <Tag onRemove={() => { }}>Tag</Tag>
+                <Tag onRemove={() => {}}>Tag</Tag>
                 <Divider className="h-6" />
                 <Spinner size="md" />
                 <Progress value={60} className="w-32" />
@@ -241,48 +242,34 @@ export default function Home() {
 
             <section>
               <h2 className="mb-4 text-lg font-semibold">Advanced</h2>
-              <Stack gap="md">
-                <Stack direction="row" gap="sm" wrap>
-                  <Button variant="secondary" onClick={() => setCmdOpen(true)}>
-                    Open Command Palette
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    onClick={() => setSpotlightOpen(true)}
-                  >
-                    Open Spotlight
-                  </Button>
-                  <ContextMenu
-                    items={[
-                      { id: "cut", label: "Cut" },
-                      { id: "copy", label: "Copy" },
-                      { id: "sep", label: "", divider: true },
-                      { id: "delete", label: "Delete" },
-                    ]}
-                  >
-                    <Card padding="sm" className="cursor-context-menu">
-                      Right click for context menu
-                    </Card>
-                  </ContextMenu>
-                </Stack>
-                <GlassPanel className="p-4 max-w-md">
-                  <p className="text-[15px]">
-                    GlassPanel with blurred background, similar to macOS
-                    surfaces.
-                  </p>
-                </GlassPanel>
+              <Stack direction="row" gap="sm" wrap>
+                <Button onClick={() => setCmdOpen(true)}>Command Palette</Button>
+                <Button onClick={() => setSpotlightOpen(true)}>Spotlight</Button>
+                <SegmentedControl
+                  aria-label="Playground segmented control"
+                  options={[
+                    { value: "one", label: "One" },
+                    { value: "two", label: "Two" },
+                    { value: "three", label: "Three" },
+                  ]}
+                  value={segment}
+                  onChange={setSegment}
+                />
               </Stack>
-            </section>
-
-            <section>
-              <h2 className="mb-4 text-lg font-semibold">Docs</h2>
-              <p className="text-[var(--color-apple-text-secondary)]">
-                Components: Button, Card, List, Table, Input, Textarea,
-                Select, Switch, Checkbox, Radio, Toast, Modal, Drawer,
-                Tooltip, Alert, Avatar, Badge, Tag, Divider, Spinner,
-                Skeleton, Progress, SegmentedControl, CommandPalette (Cmd+K),
-                SpotlightSearch, ContextMenu, GlassPanel, FloatingToolbar.
-              </p>
+              <div className="mt-4">
+                <ContextMenu
+                  items={[
+                    { id: "share", label: "Share" },
+                    { id: "duplicate", label: "Duplicate" },
+                    { id: "divider", label: "divider", divider: true },
+                    { id: "delete", label: "Delete" },
+                  ]}
+                >
+                  <GlassPanel className="max-w-md p-6">
+                    Right click this panel to open a context menu.
+                  </GlassPanel>
+                </ContextMenu>
+              </div>
             </section>
           </Stack>
         </Container>
@@ -291,33 +278,40 @@ export default function Home() {
       <Modal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        title="Modal title"
-        description="Optional description."
+        title="Delete item"
+        description="This action cannot be undone."
       >
-        <p className="text-[15px]">Modal body content.</p>
-        <Button className="mt-4" onClick={() => setModalOpen(false)}>
-          Close
-        </Button>
+        <Stack direction="row" gap="sm" justify="end">
+          <Button variant="secondary" onClick={() => setModalOpen(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={() => setModalOpen(false)}>
+            Delete
+          </Button>
+        </Stack>
       </Modal>
 
       <Drawer
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
-        title="Drawer"
-        placement="bottom"
+        title="Quick settings"
       >
-        <p className="text-[15px]">Drawer content.</p>
-        <Button className="mt-4" onClick={() => setDrawerOpen(false)}>
-          Close
-        </Button>
+        <Stack gap="md">
+          <Input label="Name" placeholder="Enter name" />
+          <Switch
+            checked={switchChecked}
+            onChange={setSwitchChecked}
+            aria-label="Enable feature"
+          />
+        </Stack>
       </Drawer>
 
       <CommandPalette
         open={cmdOpen}
         onClose={() => setCmdOpen(false)}
         items={[
-          { id: "new", label: "New file", onSelect: () => { } },
-          { id: "open", label: "Open project", onSelect: () => { } },
+          { id: "new", label: "New File", onSelect: () => setCmdOpen(false) },
+          { id: "open", label: "Open Settings", onSelect: () => setCmdOpen(false) },
         ]}
       />
 
@@ -325,19 +319,14 @@ export default function Home() {
         open={spotlightOpen}
         onClose={() => setSpotlightOpen(false)}
         results={[
-          { id: "doc", title: "Documentation", onSelect: () => { } },
-          { id: "settings", title: "Settings", onSelect: () => { } },
+          { id: "dashboard", title: "Dashboard", onSelect: () => setSpotlightOpen(false) },
+          { id: "wallet", title: "Wallet", onSelect: () => setSpotlightOpen(false) },
         ]}
-        onSearch={() => { }}
       />
 
-      <FloatingToolbar position="bottom-center">
-        <Button size="sm" variant="secondary">
-          Action 1
-        </Button>
-        <Button size="sm" variant="secondary">
-          Action 2
-        </Button>
+      <FloatingToolbar position="bottom-right">
+        <Button size="sm">Save</Button>
+        <Button size="sm" variant="secondary">Share</Button>
       </FloatingToolbar>
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { clsx } from "clsx";
 import { inputWrapperStyles, inputStyles } from "./input.styles";
 import type { InputProps } from "./input.types";
@@ -15,7 +16,8 @@ export function Input({
   id: idProp,
   ...rest
 }: InputProps) {
-  const id = idProp ?? `input-${Math.random().toString(36).slice(2, 9)}`;
+  const reactId = useId();
+  const id = idProp ?? reactId;
   const resolvedStatus = error ? "error" : status;
 
   return (

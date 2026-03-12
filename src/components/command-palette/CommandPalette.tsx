@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search } from "lucide-react";
 import { clsx } from "clsx";
 import { GlassPanel } from "@/components/glass-panel/GlassPanel";
 import { modalVariants } from "@/lib/motion";
 import type { CommandPaletteProps } from "./command-palette.types";
+import { focusTrap } from "@/utils/focus-trap";
 
 export function CommandPalette({
   open,
@@ -17,6 +18,8 @@ export function CommandPalette({
 }: CommandPaletteProps) {
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
@@ -29,18 +32,15 @@ export function CommandPalette({
   }, [items, query]);
 
   useEffect(() => {
-    setSelectedIndex(0);
-  }, [query]);
-
-  useEffect(() => {
     if (!open) return;
+    previousFocusRef.current = document.activeElement as HTMLElement | null;
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowDown") {
+      if (e.key === "ArrowDown" && filtered.length > 0) {
         e.preventDefault();
         setSelectedIndex((i) => (i + 1) % filtered.length);
       }
-      if (e.key === "ArrowUp") {
+      if (e.key === "ArrowUp" && filtered.length > 0) {
         e.preventDefault();
         setSelectedIndex((i) => (i - 1 + filtered.length) % filtered.length);
       }
@@ -50,8 +50,15 @@ export function CommandPalette({
         onClose();
       }
     };
+    const releaseFocusTrap = focusTrap(panelRef.current);
     document.addEventListener("keydown", handleKey);
-    return () => document.removeEventListener("keydown", handleKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      releaseFocusTrap();
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "";
+      previousFocusRef.current?.focus();
+    };
   }, [open, onClose, filtered, selectedIndex]);
 
   if (!open) return null;
@@ -66,6 +73,7 @@ export function CommandPalette({
         onClick={onClose}
       >
         <motion.div
+          ref={panelRef}
           variants={modalVariants}
           initial="hidden"
           animate="visible"
@@ -73,6 +81,9 @@ export function CommandPalette({
           transition={{ duration: 0.2 }}
           onClick={(e) => e.stopPropagation()}
           className={clsx("w-full max-w-xl", className)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Command palette"
         >
           <GlassPanel className="overflow-hidden">
             <div className="flex items-center gap-2 border-b border-[var(--color-apple-text-tertiary)]/15 px-3 py-2">
@@ -81,7 +92,10 @@ export function CommandPalette({
                 type="search"
                 placeholder={searchPlaceholder}
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setSelectedIndex(0);
+                }}
                 className="min-h-[44px] flex-1 bg-transparent text-[15px] text-[var(--color-apple-text)] placeholder:text-[var(--color-apple-text-tertiary)] focus:outline-none"
                 autoFocus
                 aria-label="Search commands"

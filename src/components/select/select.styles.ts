@@ -14,11 +14,11 @@ export const selectTriggerStyles = cva(
 );
 
 export const selectDropdownStyles = cva(
-  "z-50 max-h-60 overflow-auto rounded-[var(--radius-apple-md)] bg-[var(--color-apple-bg)] shadow-[var(--shadow-apple-md)] py-1"
+  "z-50 min-w-full max-h-60 overflow-auto rounded-[var(--radius-apple-md)] bg-[var(--color-apple-bg)] py-1 shadow-[var(--shadow-apple-md)]"
 );
 
 export const selectOptionStyles = cva(
-  "flex min-h-[44px] cursor-pointer items-center px-4 py-2.5 text-[15px] text-[var(--color-apple-text)] hover:bg-black/5 dark:hover:bg-white/10 focus:bg-black/5 dark:focus:bg-white/10 focus:outline-none",
+  "flex min-h-[44px] w-full cursor-pointer items-center px-4 py-2.5 text-left text-[15px] text-[var(--color-apple-text)] hover:bg-black/5 focus:bg-black/5 focus:outline-none dark:hover:bg-white/10 dark:focus:bg-white/10",
   {
     variants: {
       selected: {
