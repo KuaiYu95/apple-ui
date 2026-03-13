@@ -6,8 +6,6 @@ import { breakpoints } from "@/theme/tokens";
 export type ApplePlatform = "ios" | "ipad" | "macos";
 
 function getPlatform(): ApplePlatform {
-  if (typeof window === "undefined") return "macos";
-
   const width = window.innerWidth;
   if (width <= breakpoints.ios) return "ios";
   if (width < breakpoints.macos) return "ipad";
@@ -15,10 +13,15 @@ function getPlatform(): ApplePlatform {
 }
 
 export function useAppleBreakpoint(): ApplePlatform {
-  const [platform, setPlatform] = useState<ApplePlatform>(getPlatform);
+  // 让 SSR 与客户端首帧渲染保持一致：初始一律为 "macos"
+  const [platform, setPlatform] = useState<ApplePlatform>("macos");
 
   useEffect(() => {
     const update = () => setPlatform(getPlatform());
+
+    // 首次挂载时根据实际 viewport 宽度更新一次
+    update();
+
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
