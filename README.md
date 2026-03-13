@@ -31,4 +31,10 @@ pnpm dev
 import { Button, Card, ThemeProvider } from "@yu-cq/apple-ui";
 ```
 
+并在应用的全局样式入口显式引入组件库样式：
+
+```tsx
+import "@yu-cq/apple-ui/styles.css";
+```
+
 更多系统级页面（Settings / Wallet / Dashboard 等）与文档会在站点路由与 `src/system` 中提供。
