@@ -383,7 +383,7 @@ export function App() {
     summary: "适合桌面型数据展示的表格组件集合。",
     description:
       "Table 页面会覆盖 `Table`、`TableHead`、`TableBody`、`TableRow` 与 `TableCell`，适合管理后台和数据看板。",
-    features: ["支持横向滚动", "支持交互行", "支持表头单元格切换"],
+    features: ["支持横向滚动", "支持行级 hover 样式", "支持表头单元格切换"],
     usage: `import { Table, TableHead, TableBody, TableRow, TableCell } from "@yu-cq/apple-ui";
 
 <Table>
@@ -396,7 +396,11 @@ export function App() {
 </Table>`,
     props: [
       { name: "Table.children", type: "React.ReactNode", required: true, description: "表格结构内容。" },
-      { name: "TableRow.onClick", type: "() => void", description: "将整行变为可交互行。" },
+      {
+        name: "TableRow.onClick",
+        type: "(event: React.MouseEvent<HTMLTableRowElement>) => void",
+        description: "可选的行级点击回调；更推荐把真正的操作入口放在单元格里的按钮或链接上。",
+      },
       { name: "TableCell.header", type: "boolean", defaultValue: "false", description: "为 true 时渲染为 th。" },
     ],
   },

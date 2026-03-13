@@ -5,17 +5,20 @@ import { breakpoints } from "@/theme/tokens";
 
 export type ApplePlatform = "ios" | "ipad" | "macos";
 
+function getPlatform(): ApplePlatform {
+  if (typeof window === "undefined") return "macos";
+
+  const width = window.innerWidth;
+  if (width <= breakpoints.ios) return "ios";
+  if (width < breakpoints.macos) return "ipad";
+  return "macos";
+}
+
 export function useAppleBreakpoint(): ApplePlatform {
-  const [platform, setPlatform] = useState<ApplePlatform>("macos");
+  const [platform, setPlatform] = useState<ApplePlatform>(getPlatform);
 
   useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth;
-      if (w <= breakpoints.ios) setPlatform("ios");
-      else if (w < breakpoints.macos) setPlatform("ipad");
-      else setPlatform("macos");
-    };
-    update();
+    const update = () => setPlatform(getPlatform());
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);

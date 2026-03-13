@@ -30,23 +30,15 @@ export function TableRow({
   children,
   className,
   onClick,
+  onKeyDown,
+  ...rest
 }: TableRowProps) {
   return (
     <tr
       className={clsx(tableRowStyles({ interactive: !!onClick }), className)}
       onClick={onClick}
-      role={onClick ? "button" : undefined}
-      tabIndex={onClick ? 0 : undefined}
-      onKeyDown={
-        onClick
-          ? (e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                onClick();
-              }
-            }
-          : undefined
-      }
+      onKeyDown={onKeyDown}
+      {...rest}
     >
       {children}
     </tr>

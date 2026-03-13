@@ -1,9 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { clsx } from "clsx";
 import { segmentGroupStyles, segmentOptionStyles } from "./segmented-control.styles";
-import { defaultTransition } from "@/lib/motion";
 import type { SegmentedControlProps } from "./segmented-control.types";
 
 export function SegmentedControl({

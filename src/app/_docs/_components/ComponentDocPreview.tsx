@@ -41,7 +41,6 @@ import {
   Tabs,
   Tag,
   Textarea,
-  ToastProvider,
   Tooltip,
   toast,
 } from "@/components";
@@ -95,24 +94,22 @@ function ThemeProviderPreview() {
 
 function ToastPreview() {
   return (
-    <ToastProvider>
-      <PreviewFrame>
-        <Stack gap="md" className="min-h-[180px]">
-          <p className="text-sm text-[var(--color-apple-text-secondary)]">
-            点击按钮后，消息会出现在当前页面右下区域，方便直接看到提醒效果。
-          </p>
-          <Stack direction="row" gap="sm" wrap>
-            <Button onClick={() => toast.success("保存成功")}>成功消息</Button>
-            <Button variant="secondary" onClick={() => toast.info("同步进行中")}>
-              信息消息
-            </Button>
-            <Button variant="danger" onClick={() => toast.error("删除失败")}>
-              错误消息
-            </Button>
-          </Stack>
+    <PreviewFrame>
+      <Stack gap="md" className="min-h-[180px]">
+        <p className="text-sm text-[var(--color-apple-text-secondary)]">
+          点击按钮后，消息会出现在当前页面右下区域，方便直接看到提醒效果。
+        </p>
+        <Stack direction="row" gap="sm" wrap>
+          <Button onClick={() => toast.success("保存成功")}>成功消息</Button>
+          <Button variant="secondary" onClick={() => toast.info("同步进行中")}>
+            信息消息
+          </Button>
+          <Button variant="danger" onClick={() => toast.error("删除失败")}>
+            错误消息
+          </Button>
         </Stack>
-      </PreviewFrame>
-    </ToastProvider>
+      </Stack>
+    </PreviewFrame>
   );
 }
 
@@ -304,10 +301,14 @@ export function ComponentDocPreview({ slug }: ComponentDocPreviewProps) {
                 <TableCell>启用中</TableCell>
                 <TableCell>专业版</TableCell>
               </TableRow>
-              <TableRow onClick={() => {}}>
+              <TableRow>
                 <TableCell>iCloud Drive</TableCell>
                 <TableCell>同步中</TableCell>
-                <TableCell>家庭版</TableCell>
+                <TableCell>
+                  <Button size="sm" variant="text">
+                    查看
+                  </Button>
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>

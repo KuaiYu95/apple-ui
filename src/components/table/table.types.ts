@@ -13,10 +13,8 @@ export type TableBodyProps = {
   className?: string;
 };
 
-export type TableRowProps = {
+export type TableRowProps = React.HTMLAttributes<HTMLTableRowElement> & {
   children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
 };
 
 export type TableCellProps = {

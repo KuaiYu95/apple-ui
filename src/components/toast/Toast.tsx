@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { clsx } from "clsx";
 import { toastItemStyles } from "./toast.styles";
 import { toastVariants } from "@/lib/motion";
 import type { ToastProps } from "./toast.types";
@@ -16,7 +15,7 @@ export function Toast({ toasts, remove }: ToastProps) {
     >
       <AnimatePresence mode="popLayout">
         {toasts.map((t) => (
-          <ToastItem key={t.id} item={t} onRemove={() => remove(t.id)} />
+          <ToastItem key={t.id} item={t} remove={remove} />
         ))}
       </AnimatePresence>
     </div>
@@ -25,17 +24,17 @@ export function Toast({ toasts, remove }: ToastProps) {
 
 function ToastItem({
   item,
-  onRemove,
+  remove,
 }: {
   item: ToastProps["toasts"][0];
-  onRemove: () => void;
+  remove: ToastProps["remove"];
 }) {
   const duration = item.duration ?? 3000;
 
   useEffect(() => {
-    const t = setTimeout(onRemove, duration);
+    const t = window.setTimeout(() => remove(item.id), duration);
     return () => clearTimeout(t);
-  }, [duration, onRemove]);
+  }, [duration, item.id, remove]);
 
   return (
     <motion.div
